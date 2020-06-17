@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <LobbyDashboard></LobbyDashboard>
-    <GraphQL></GraphQL>
   </div>
 </template>
 
@@ -12,13 +11,24 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0px;
+  left:0px;
+  z-index:1000;
+}
+
+  html, body {
+    margin: 0;
+    height: 100%;
 }
 
 </style>
 <script>
   import LobbyDashboard from "./components/LobbyDashboard";
-  import GraphQL from "./components/GraphQL";
+
   export default {
-    components: {GraphQL, LobbyDashboard},
+    components: {LobbyDashboard},
   }
 </script>

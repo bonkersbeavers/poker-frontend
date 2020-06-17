@@ -1,30 +1,25 @@
 <template>
-  <div>{{echo}}</div>
+  <div>{{table_state}}</div>
 </template>
 
 <script>
 import gql from 'graphql-tag';
-//
-// const SUBSCRIBE_TO_SERVER = gql`
-// subscription {
-//   subscribe{
-//     communityCards{
-//       rank,
-//       suit
-//     },
-//     players{
-//       name
-//       stack
-//       seat
-//     }
-//   }
-// }
-// `;
 
-// const QUERY = gql`
-// query{
-//   echo(message:"sdasa")
-// }`;
+const SUBSCRIBE_TO_SERVER = gql`
+subscription {
+  subscribe{
+    communityCards{
+      rank,
+      suit
+    },
+    players{
+      name
+      stack
+      seat
+    }
+  }
+} `;
+
 
 export default {
   data() {
@@ -37,18 +32,19 @@ export default {
 
   },
   apollo: {
-    echo: gql`query{echo(message:"sdasa")}`,
-    // $subscribe: {
-    //   table_state: {
-    //     query: SUBSCRIBE_TO_SERVER,
-    //     result ({data}) {
-    //       // Let's update the local data
-    //         console.log(data.data)
-    //         console.log(data)
-    //       this.table_state = data.data
-    //     },
-    //   }
-    // },
+    $subscribe: {
+      table_state: {
+        query: SUBSCRIBE_TO_SERVER,
+        result ({data}) {
+          // Let's update the local data
+            console.log(data);
+          this.table_state = data.subscribe;
+          this.$store.state.playersNumber = data.subscribe.players.length;
+          this.$store.state.playersNumber = data.subscribe.players.length;
+
+        },
+      }
+    },
 
   },
 }

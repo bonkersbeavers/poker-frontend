@@ -1,13 +1,29 @@
 <template>
-  $END$
+  <div class="table">
+    <img src="../../public/table.svg">
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "Table"
+// import Player from "./Player";
+export default {
+  name: "Table",
+  methods: {
+    addPlayer(){
+
     }
+  },
+  mounted(){
+    this.$root.$on("addPlayer", () => this.addPlayer());
+  }
+}
+
 </script>
 
 <style scoped>
-
+.table {
+  width: 500px;
+  height: 250px;
+  align-self: center;
+}
 </style>
