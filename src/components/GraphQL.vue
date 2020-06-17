@@ -30,21 +30,22 @@ export default {
   data() {
     return {
       echo: [],
+      table_state: []
     };
   },
   mounted() {
 
   },
   apollo: {
-    echo: gql`query{echo(message:"sdasa")}`
+    echo: gql`query{echo(message:"sdasa")}`,
     // $subscribe: {
-    //   subscription: {
-    //     // graphql query
+    //   table_state: {
     //     query: SUBSCRIBE_TO_SERVER,
-    //     result (data) {
+    //     result ({data}) {
     //       // Let's update the local data
+    //         console.log(data.data)
     //         console.log(data)
-    //       this.table_state = data.data.subscription
+    //       this.table_state = data.data
     //     },
     //   }
     // },
