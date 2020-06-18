@@ -7,14 +7,14 @@
 </template>
 
 <script>
-    import Table from "./Table";
-    import GraphQL from "./GraphQL";
-    import NavBar from "./NavBar";
-    export default {
-        name: "LobbyDashboard",
-        components: {NavBar, Table, GraphQL}
+  import Table from "./Table";
+  import GraphQL from "./GraphQL";
+  import NavBar from "./NavBar";
+  export default {
+      name: "LobbyDashboard",
+      components: {NavBar, Table, GraphQL}
 
-    }
+  }
 </script>
 
 <style scoped>

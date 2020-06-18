@@ -7,18 +7,24 @@ import gql from 'graphql-tag';
 
 const SUBSCRIBE_TO_SERVER = gql`
 subscription {
-  subscribe{
-    communityCards{
-      rank,
-      suit
-    },
-    players{
-      name
-      stack
-      seat
+  subscribe(request: { playerToken: "f3dba237-70e5-4729-8399-f123183dff5f" }) {
+    table {
+      players {
+        seat
+        name
+        stack
+        cards {
+          suit
+          rank
+          isHidden
+        }
+        lastAction
+        currentBet
+      }
     }
   }
-} `;
+}
+ `;
 
 
 export default {
@@ -35,13 +41,11 @@ export default {
     $subscribe: {
       table_state: {
         query: SUBSCRIBE_TO_SERVER,
-        result ({data}) {
+        result (data) {
           // Let's update the local data
             console.log(data);
           this.table_state = data.subscribe;
           this.$store.state.playersNumber = data.subscribe.players.length;
-          this.$store.state.playersNumber = data.subscribe.players.length;
-
         },
       }
     },

@@ -11,6 +11,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import {split} from "apollo-link";
 import {getMainDefinition} from "apollo-utilities";
 
+
 Vue.use(VueApollo);
 
 Vue.config.productionTip = false;

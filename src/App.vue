@@ -26,9 +26,38 @@
 
 </style>
 <script>
-  import LobbyDashboard from "./components/LobbyDashboard";
+// import gql from 'graphql-tag';
 
-  export default {
-    components: {LobbyDashboard},
-  }
+import LobbyDashboard from "./components/LobbyDashboard";
+//
+// const START_DEFAULT_GAME = gql`
+// mutation createTable {
+//   createTable(settings: {jsonSettings: """{
+//     'seatsNumber': 5,
+//     'defaultStack': 1000,
+//     'blinds': {
+//       'smallBlind': 10,
+//       'bigBlind': 20
+//     },
+//     'playerActionTime': -1,
+//     'dealerActionTime': 3000,
+//     'newHandTime': 8000
+//   }"""}){
+//     code
+//     message
+//   }
+// }
+// `;
+
+export default {
+  components: {LobbyDashboard},
+  // created() {
+  //   this.$apollo.mutate({
+  //     mutation: START_DEFAULT_GAME,
+  //     result ({data}) {
+  //       console.log(data)
+  //     }
+  //   })
+  // }
+}
 </script>

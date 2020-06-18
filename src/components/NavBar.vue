@@ -1,44 +1,53 @@
 <template>
   <div class="navBar">
-    <p style="font-size: 50px">Players: {{ numberOfPlayers}}</p>
-    <button onclick="this.addPlayer">Add player</button>
-    <input
-        class="mb2"
-        type="text"
-        placeholder="enter player's name">
+    <p style="font-size: 50px">Players: {{ playerNumber }}</p>
+    <button @click="addPlayer">Add player</button>
+    <input class="mb2" type="text" placeholder="enter player's name" v-model="playerName">
   </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import gql from 'graphql-tag';
+
+const ADD_PLAYER = gql`
+mutation addPlayer($name: String!, $seat: Int!) {
+  addPlayer(request: {playerName: $name, seat: $seat}){
+    code
+    message
+    playerToken
+  }
+}`;
 
 export default {
   name: "NavBar",
   data(){
     return{
-      numberOfPlayers: 0,
-      seat: "",
+      playerNumber: 0,
       playerName: "",
       maxPlayers: 6
     }
   },
   methods: {
     addPlayer() {
-      if(this.numberOfPlayers < this.maxPlayers){
-        this.numberOfPlayers++;
-        this.$root.$emit("addPlayer");
+      if(this.playerNumber < this.maxPlayers){
+        this.playerNumber++;
+        this.$root.$emit("addPlayer", this.playerName, this.playerNumber);
+        this.$apollo.mutate({
+          mutation: ADD_PLAYER,
+          variables: {
+            name: this.playerName,
+            seat: this.playerNumber
+          },
+          result(data){
+            console.log(data)
+          }
+        })
       }
       else{
           alert("No more room for another players.")
       }
     }
   },
-  computed: mapGetters(["getPlayersNumber"]),
-  watch:{
-    getPlayersNumber: function() {
-      this.numberOfPlayers = this.getPlayersNumber
-    }
-  }
 }
 </script>
 
