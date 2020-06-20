@@ -37,10 +37,16 @@ export default {
           variables: {
             name: this.playerName,
             seat: this.playerNumber
-          },
-          result(data){
-            console.log(data)
           }
+          // },
+          // update: (store, { data: { addPlayer } }) => {
+          //   // Read the data from our cache for this query.
+          //   const data = store.readQuery({ query: ADD_PLAYER })
+          //   // Add our tag from the mutation to the end
+          //   data.push(addPlayer);
+          //   // Write our data back to the cache.
+          //   store.writeQuery({ query: ADD_PLAYER, data })
+          // },
         })
       }
       else{
