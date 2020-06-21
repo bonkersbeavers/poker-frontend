@@ -3,6 +3,7 @@
     <p style="font-size: 50px">Players: {{ playerNumber }}</p>
     <button @click="addPlayer">Add player</button>
     <input class="mb2" type="text" placeholder="enter player's name" v-model="playerName">
+    <button @click="resetGame">Reset game</button>
   </div>
 </template>
 
@@ -18,6 +19,15 @@ mutation addPlayer($name: String!, $seat: Int!) {
   }
 }`;
 
+const RESET_GAME = gql`
+mutation resetGame {
+  reset{
+    code
+    message
+  }
+}
+`;
+
 export default {
   name: "NavBar",
   data(){
@@ -31,27 +41,33 @@ export default {
     addPlayer() {
       if(this.playerNumber < this.maxPlayers){
         this.playerNumber++;
-        this.$root.$emit("addPlayer", this.playerName, this.playerNumber);
         this.$apollo.mutate({
           mutation: ADD_PLAYER,
           variables: {
             name: this.playerName,
             seat: this.playerNumber
+          },
+          update: (store, { data:{addPlayer} }) => {
+            if(addPlayer.code !== "OK")
+              console.log(addPlayer.message);
+            else
+              this.$root.$emit("addPlayer", this.playerName, this.playerNumber, addPlayer.playerToken);
           }
-          // },
-          // update: (store, { data: { addPlayer } }) => {
-          //   // Read the data from our cache for this query.
-          //   const data = store.readQuery({ query: ADD_PLAYER })
-          //   // Add our tag from the mutation to the end
-          //   data.push(addPlayer);
-          //   // Write our data back to the cache.
-          //   store.writeQuery({ query: ADD_PLAYER, data })
-          // },
         })
       }
       else{
           alert("No more room for another players.")
       }
+    },
+    resetGame(){
+      this.$apollo.mutate({
+        mutation: RESET_GAME,
+        update: (store, { data:{ reset} }) => {
+            if(reset.code)
+              alert("Game reseted")
+        }
+      });
+      window.location.reload(true)
     }
   },
 }

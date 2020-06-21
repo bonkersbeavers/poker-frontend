@@ -1,7 +1,8 @@
 <template>
-  <div class="table" :key="event">
+  <div class="table">
     <div class="player" :style="style(player.active)" v-for="(player,index) in players" :key="index">
       PLAYER {{ player.seat }}: {{ player.name }}
+      SUBSCRIPTION: {{}}
     </div>
   </div>
 </template>
@@ -12,12 +13,12 @@
     data() {
       return{
         players: [
-          {name:"mama", seat: 0, color: "#f9f39f", active: false},
-          {name:"", seat: 0, color: "#f9f39f", active: false},
-          {name:"", seat: 0, color: "#f9f39f", active: false},
-          {name:"", seat: 0, color: "#f9f39f", active: false},
-          {name:"", seat: 0, color: "#f9f39f", active: false},
-          {name:"", seat: 0, color: "#f9f39f", active: false}
+          {name:"", seat: 0, color: "#f9f39f", token:"", active: false},
+          {name:"", seat: 0, color: "#f9f39f", token:"", active: false},
+          {name:"", seat: 0, color: "#f9f39f", token:"", active: false},
+          {name:"", seat: 0, color: "#f9f39f", token:"", active: false},
+          {name:"", seat: 0, color: "#f9f39f", token:"", active: false},
+          {name:"", seat: 0, color: "#f9f39f", token:"", active: false}
         ],
       }
     },
@@ -28,17 +29,19 @@
         else
           return "display: flexbox;";
       },
-      addPlayersData(name, seat){
+      addPlayersData(name, seat, token){
         let counter = seat-1;
         this.players[counter].name = name;
         this.players[counter].seat = seat;
+        this.players[counter].token = token;
         this.players[counter].active = true;
         this.event = !this.event;
         document.getElementsByClassName("player")[counter].style = "display: flexbox";
+        this.$root.$emit("subscribePlayer", token)
       },
     },
     mounted(){
-      this.$root.$on("addPlayer", (playerName, playerNumber) => this.addPlayersData(playerName, playerNumber));
+      this.$root.$on("addPlayer", (playerName, playerNumber, playerToken) => this.addPlayersData(playerName, playerNumber, playerToken));
     },
     computed: {
     }

@@ -2,17 +2,17 @@
   <div class="background">
     <NavBar></NavBar>
     <Table></Table>
-    <GraphQL></GraphQL>
+    <GraphQLTable></GraphQLTable>
   </div>
 </template>
 
 <script>
   import Table from "./Table";
-  import GraphQL from "./GraphQL";
   import NavBar from "./NavBar";
+  import GraphQLTable from "./GraphQLTable";
   export default {
       name: "LobbyDashboard",
-      components: {NavBar, Table, GraphQL}
+      components: { NavBar, Table, GraphQLTable}
 
   }
 </script>
