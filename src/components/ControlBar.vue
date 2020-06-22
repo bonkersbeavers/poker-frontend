@@ -7,7 +7,7 @@
     <button class="blue button" @click="takeActions('RAISE')" :disabled="this.possibleActions.RAISE">RAISE</button>
     <button  class="blue button" @click="takeActions('BET')" :disabled="this.possibleActions.BET">BET</button>
     <input class="w3-input w3-border input" type="text" placeholder="enter player's name" v-model="chips">
-    <p class="notification">Current bet: {{ this.bet }} </p>
+    <p class="notification">Current pot: {{ this.pot[0] }} </p>
   </div>
 </template>
 
@@ -32,7 +32,7 @@ const TAKE_ACTION = gql`
       return {
         playersTurn: "",
         actionToken: "",
-        bet: 20,
+        pot: 0,
         chips: 0,
         possibleActions: {
           "FOLD": true,
@@ -44,9 +44,10 @@ const TAKE_ACTION = gql`
       }
     },
     methods: {
-      updateControlBar(token, actions, playersTurn){
+      updateControlBar(token, actions, pot, playersTurn){
         this.actionToken = token;
         this.playersTurn = playersTurn;
+        this.pot = pot;
         actions.filter( action => {
           if(action.actionType in this.possibleActions)
             this.possibleActions[String(action.actionType)] = false
@@ -63,11 +64,10 @@ const TAKE_ACTION = gql`
         });
         if(action !== "BET" || action !== "RAISE")
           this.chips = 0;
-        this.bet += Number(this.chips);
       },
     },
     mounted(){
-      this.$root.$on("takeAction", (actionToken, possibleActions, playersTurn) => this.updateControlBar(actionToken, possibleActions, playersTurn))
+      this.$root.$on("takeAction", (actionToken, possibleActions, pot, playersTurn) => this.updateControlBar(actionToken, possibleActions, pot, playersTurn))
     }
   }
 </script>

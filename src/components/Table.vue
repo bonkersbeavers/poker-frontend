@@ -5,7 +5,6 @@
       <p class="cards">{{ player.cards[0]}}<br>{{ player.cards[1]}}</p>
       <p class="stack">STACK: {{ player.stack }}</p>
     </div>
-    <div>COMMUNITY CARDS</div>
   </div>
 </template>
 
@@ -58,6 +57,7 @@ subscription subscribePlayer($token: String!) {
     data() {
       return{
         table_state: [],
+        alert: true,
         players: [
           {name:"", seat: 0, color: "#f9f39f", token:"", cards: [], stack: 0, active: false},
           {name:"", seat: 0, color: "#f9f39f", token:"", cards: [], stack: 0, active: false},
@@ -92,13 +92,20 @@ subscription subscribePlayer($token: String!) {
             token: token
           }
         }).subscribe(({ data }) => {
-          console.log(data.subscribe.table);
+          console.log(data.subscribe)
+          if(data.subscribe.table.communityCards.length !== 0){
+            let communityCards = []
+            data.subscribe.table.communityCards.forEach( (card, index) => {
+             communityCards[index] = card.rank + " OF " + card.suit;
+            });
+            alert(communityCards)
+          };
           this.players[counter].stack = data.subscribe.table.players[counter].stack;
           data.subscribe.table.players[counter].cards.forEach( (card, index) => {
             this.players[counter].cards[index] = card.rank + " OF " + card.suit;
           });
           if(data.subscribe.actionToken)
-            this.$root.$emit("takeAction", data.subscribe.actionToken, data.subscribe.possibleActions, counter+1)
+            this.$root.$emit("takeAction", data.subscribe.actionToken, data.subscribe.possibleActions, data.subscribe.table.pots, counter+1)
         })
       }
     },
