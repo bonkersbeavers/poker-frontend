@@ -2,7 +2,7 @@
   <div class="navBar">
     <p class="notification">Players: {{ playerNumber }}</p>
     <button class="red button" @click="addPlayer">Add player</button>
-    <input class="mb2" type="text" placeholder="enter player's name" v-model="playerName">
+    <input class="w3-input w3-border" type="text" placeholder="enter player's name" v-model="playerName">
     <button class="red button" @click="startGame">Start game</button>
     <button class="red button end" @click="resetGame">Reset game</button>
   </div>

@@ -6,7 +6,7 @@
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Impact, Charcoal, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -22,7 +22,8 @@
   html, body {
     margin: 0;
     height: 100%;
-}
+    font-family: Impact, Charcoal, sans-serif;
+  }
 
 </style>
 <script>

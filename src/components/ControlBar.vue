@@ -6,7 +6,7 @@
     <button class="blue button" @click="takeActions('CHECK')" :disabled="this.possibleActions.CHECK">CHECK</button>
     <button class="blue button" @click="takeActions('RAISE')" :disabled="this.possibleActions.RAISE">RAISE</button>
     <button  class="blue button" @click="takeActions('BET')" :disabled="this.possibleActions.BET">BET</button>
-    <input class="mb2" type="text" placeholder="enter chips amount" v-model="chips">
+    <input class="w3-input w3-border input" type="text" placeholder="enter player's name" v-model="chips">
     <p class="notification">Current bet: {{ this.bet }} </p>
   </div>
 </template>
@@ -73,12 +73,17 @@ const TAKE_ACTION = gql`
 </script>
 
 <style scoped>
+  .input{
+    height: 30%
+  }
+  
 .btmBar{
   width: 100%;
   height: 10%;
   background-color: green;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .button::-moz-focus-inner{

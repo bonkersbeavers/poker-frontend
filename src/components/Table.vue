@@ -1,12 +1,11 @@
 <template>
   <div class="table">
     <div class="player" :style="style(player.active)" v-for="(player,index) in players" :key="index">
-      PLAYER {{ player.seat }}: {{ player.name }}
-      <br>CARDS
-      <p>{{ player.cards[0]}}</p>
-      <p>{{ player.cards[1]}}</p>
-      <br>STACK: {{ player.stack }}
+      <p class="name">PLAYER {{ player.seat }}: {{ player.name }}</p>
+      <p class="cards">{{ player.cards[0]}}<br>{{ player.cards[1]}}</p>
+      <p class="stack">STACK: {{ player.stack }}</p>
     </div>
+    <div>COMMUNITY CARDS</div>
   </div>
 </template>
 
@@ -93,6 +92,7 @@ subscription subscribePlayer($token: String!) {
             token: token
           }
         }).subscribe(({ data }) => {
+          console.log(data.subscribe.table);
           this.players[counter].stack = data.subscribe.table.players[counter].stack;
           data.subscribe.table.players[counter].cards.forEach( (card, index) => {
             this.players[counter].cards[index] = card.rank + " OF " + card.suit;
@@ -116,17 +116,35 @@ subscription subscribePlayer($token: String!) {
     width:60%;
     height: 60%;
     align-self: center;
-    border: 1px red solid;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
     align-content: space-between;
   }
+  
+  .stack{
+    background: white;
+    color: black;
+    width: 100%;
+    border-radius: 10px;
+    margin: 0px;
+  }
+  
+  .cards {
+    width: 100%;
+    margin: 0px;
+  }
+  
   .player {
     width: 30%;
-    height: 20%;
-    font-size: 25px;
-    border: 1px blue solid;
-    color: yellow;
+    height: 25%;
+    font-size: 20px;
+    border: 1px #4d4e4c solid;
+    color: white;
+    border-radius: 10px;
+    background: #686868;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
   }
 </style>
