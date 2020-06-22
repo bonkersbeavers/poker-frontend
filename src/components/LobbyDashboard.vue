@@ -3,6 +3,7 @@
     <NavBar></NavBar>
     <Table></Table>
     <GraphQLTable></GraphQLTable>
+    <ControlBar></ControlBar>
   </div>
 </template>
 
@@ -10,10 +11,10 @@
   import Table from "./Table";
   import NavBar from "./NavBar";
   import GraphQLTable from "./GraphQLTable";
+  import ControlBar from "./ControlBar";
   export default {
       name: "LobbyDashboard",
-      components: { NavBar, Table, GraphQLTable}
-
+      components: {ControlBar, NavBar, Table, GraphQLTable},
   }
 </script>
 
